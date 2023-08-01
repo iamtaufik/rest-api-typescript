@@ -37,7 +37,7 @@ export const createSession = async (req: Request, res: Response) => {
       throw new ErrorType(error.details[0].message, 422);
     }
 
-    const user = await findUserByEmail(value.email);
+    const user: any = await findUserByEmail(value.email);
 
     if (!user) {
       logger.error('ERR Auth= Create Session', 'User not found');
@@ -60,7 +60,7 @@ export const createSession = async (req: Request, res: Response) => {
       logger.error('ERR Auth= Create Session', error.message);
       return res.status(error.statusCode).json({ status: false, statusCode: error.statusCode, message: error.message });
     }
-    logger.error('ERR Auth= Create Session', error.message);
+    logger.error('ERR Server= Error Server Create Session', error.message);
     return res.status(500).json({ status: false, statusCode: 500, message: error.message });
   }
 };
